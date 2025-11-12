@@ -103,7 +103,7 @@ This challenge is built with the fundamentals of the web. No frameworks allowed!
 
 Stuck? Finished? Compare your work with the official solution.
 
-**[ Click here to view the complete solution code.](./solution)**
+**[ Click here to view the complete solution code.](https://github.com/ayoubabbadi/Advanced-Portfolio-Challenge)**
 
 *Try to complete the challenge yourself before you peek!*
 
