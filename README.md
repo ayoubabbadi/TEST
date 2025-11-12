@@ -51,7 +51,7 @@ This challenge will test your mastery of HTML, CSS, and modern JavaScript, forci
 
 Your build must be a pixel-perfect match of the design below, including both **desktop** and **mobile** layouts.
 
-![Portfolio Design Preview](Portfolio Design Preview.png)
+![Portfolio Design Preview](Portfolio-Design-Preview.png)
 
 ---
 
