@@ -1,981 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Portfolio | HTML/CSS/JS Challenge</title>
+    <title>Advanced Portfolio | Professional Challenge v2</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome (Icon Library) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* CSS Variables for Theme */
-        :root {
-            --primary: #6C5CE7;
-            --secondary: #00CEFF;
-            --dark: #2D3436;
-            --light: #F5F6FA;
-            --accent: #FD79A8;
-            --text: #636E72;
-            --error: #E74C3C;
-            --glass: rgba(255, 255, 255, 0.15);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        /* Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: linear-gradient(135deg, var(--light) 50%, #f0f0f0 50%);
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.7;
-        }
-
-        ::selection {
-            background: var(--accent);
-            color: white;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--light);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        /* Layout */
-        .container {
-            width: 100%;
-            min-height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(255, 255, 255, 0.18);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            height: 100vh;
-            width: 25%;
-            z-index: 100;
-            box-shadow: var(--shadow);
-        }
-
-        .profile {
-            text-align: center;
-            position: relative;
-        }
-
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--primary);
-            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
-            transition: var(--transition);
-        }
-
-        .profile-img:hover {
-            transform: scale(1.05) rotate(5deg);
-            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.4);
-        }
-
-        .profile h2 {
-            font-size: 1.5rem;
-            margin-top: 1rem;
-            color: var(--dark);
-            position: relative;
-            display: inline-block;
-        }
-
-        .profile h2::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 3px;
-        }
-
-        .profile p {
-            color: var(--text);
-            font-weight: 300;
-            margin-top: 0.5rem;
-        }
-
-        .nav-menu {
-            width: 100%;
-            margin-top: 2rem;
-        }
-
-        .nav-menu ul {
-            list-style: none;
-        }
-
-        .nav-menu li {
-            margin: 10px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-menu li::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(108, 92, 231, 0.1), transparent);
-            transition: var(--transition);
-        }
-
-        .nav-menu li:hover::before {
-            left: 100%;
-        }
-
-        .nav-menu a {
-            display: flex;
-            align-items: center;
-            color: var(--dark);
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            transition: var(--transition);
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            background: rgba(108, 92, 231, 0.1);
-            color: var(--primary);
-            transform: translateX(10px);
-        }
-
-        .nav-menu i {
-            margin-right: 1rem;
-            font-size: 1.2rem;
-            width: 25px;
-            text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--glass);
-            color: var(--dark);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
-        .social-links a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-left: 25%;
-            padding: 4rem;
-        }
-
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem 0;
-            position: relative;
-        }
-        
-        /* NEW: Styles for the fade-in-on-scroll animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* End of new styles */
-
-        section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: 300px;
-            opacity: 0.1;
-            z-index: -1;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            color: var(--dark);
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 5px;
-        }
-
-        /* Home Section */
-        #home {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #home::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
-            z-index: -1;
-            animation: pulse 15s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            100% { transform: scale(1.2); opacity: 0.8; }
-        }
-
-        .home-content h1 {
-            font-size: 4rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
-
-        .typing-text {
-            font-size: 1.8rem;
-            color: var(--text);
-            margin-bottom: 2rem;
-            font-weight: 300;
-            position: relative;
-            display: inline-block;
-            min-height: 1.8rem;
-        }
-
-        .typing-text .cursor {
-            display: inline-block;
-            width: 3px;
-            background: var(--text);
-            margin-left: 5px;
-            animation: blink 0.7s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-            border-radius: 50px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
-            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.4);
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn i {
-            margin-left: 0.5rem;
-            transition: var(--transition);
-        }
-
-        .btn:hover i {
-            transform: translateX(5px);
-        }
-
-        .scroll-down {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text);
-            font-weight: 300;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-        }
-
-        .scroll-down::after {
-            content: '';
-            display: block;
-            width: 1px;
-            height: 50px;
-            background: var(--text);
-            margin-top: 1rem;
-            animation: scrollLine 2s infinite;
-        }
-
-        @keyframes scrollLine {
-            0% { transform: scaleY(0); transform-origin: top; }
-            50% { transform: scaleY(1); transform-origin: top; }
-            51% { transform-origin: bottom; }
-            100% { transform: scaleY(0); transform-origin: bottom; }
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-img {
-            position: relative;
-            perspective: 1000px;
-        }
-
-        .about-img-main {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            transform-style: preserve-3d;
-            transition: var(--transition);
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-img:hover .about-img-main {
-            transform: rotateY(10deg) rotateX(5deg) translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .about-img::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 100%;
-            height: 100%;
-            border: 3px solid var(--primary);
-            border-radius: 20px;
-            z-index: 0;
-            transition: var(--transition);
-        }
-
-        .about-img:hover::before {
-            top: 15px;
-            left: 15px;
-        }
-
-        .about-text h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-            position: relative;
-        }
-
-        .about-text h3::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 3px;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            color: var(--text);
-        }
-
-        .info-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-        }
-
-        .info-item label {
-            font-weight: 600;
-            color: var(--dark);
-            margin-right: 0.5rem;
-        }
-
-        .info-item span {
-            color: var(--text);
-        }
-
-        /* Skills Section */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
-        .skill-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-            transition: var(--transition);
-        }
-
-        .skill-card:hover::before {
-            width: 100%;
-            opacity: 0.1;
-        }
-
-        .skill-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .skill-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .skill-card p {
-            color: var(--text);
-            margin-bottom: 1.5rem;
-        }
-
-        .skill-level {
-            height: 10px;
-            background: #f0f0f0;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            position: relative;
-            /* NEW: Set width to 0. JS will animate this. */
-            width: 0;
-            /* NEW: Use transition instead of @keyframes animation */
-            transition: width 1.5s ease-out 0.5s;
-        }
-
-        /* NEW: Removed @keyframes progressAnimation */
-
-        /* Portfolio Section */
-        .portfolio-filter {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.8rem 1.5rem;
-            background: none;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .filter-btn.active,
-        .filter-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .portfolio-item {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            aspect-ratio: 4/3;
-            transition: var(--transition);
-        }
-        
-        .portfolio-item.hide {
-            transform: scale(0);
-            width: 0;
-            height: 0;
-            padding: 0;
-            margin: 0;
-            opacity: 0;
-        }
-
-        .portfolio-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(108, 92, 231, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: var(--transition);
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .portfolio-overlay h3 {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            transform: translateY(20px);
-            transition: var(--transition);
-        }
-
-        .portfolio-overlay p {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 1.5rem;
-            transform: translateY(20px);
-            transition: var(--transition);
-            transition-delay: 0.1s;
-        }
-
-        .portfolio-link {
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(20px);
-            transition: var(--transition);
-            transition-delay: 0.2s;
-        }
-
-        .portfolio-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-
-        .portfolio-item:hover .portfolio-overlay h3,
-        .portfolio-item:hover .portfolio-overlay p,
-        .portfolio-item:hover .portfolio-link {
-            transform: translateY(0);
-        }
-
-        .portfolio-item:hover .portfolio-img {
-            transform: scale(1.1);
-        }
-
-        /* Contact Section */
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .contact-text h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .contact-text p {
-            color: var(--text);
-        }
-
-        .contact-form {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .form-group label {
-            position: absolute;
-            top: 1rem;
-            left: 1.5rem;
-            color: var(--text);
-            transition: var(--transition);
-            pointer-events: none;
-            background: white;
-            padding: 0 0.5rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            border: 2px solid #f0f0f0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: var(--transition);
-            background: transparent;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
-        }
-
-        .form-control:focus+label,
-        .form-control:not(:placeholder-shown)+label {
-            top: -0.6rem;
-            left: 1rem;
-            font-size: 0.8rem;
-            color: var(--primary);
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        /* NEW: CSS Form Validation Styles */
-        .form-control:invalid:not(:placeholder-shown) {
-            border-color: var(--error);
-        }
-        
-        .form-control:invalid:not(:placeholder-shown)+label {
-            color: var(--error);
-        }
-        
-        .error-message {
-            display: none;
-            color: var(--error);
-            font-size: 0.8rem;
-            margin-top: 5px;
-            position: absolute;
-            bottom: -1.2rem;
-        }
-        
-        .form-control:invalid:not(:placeholder-shown) ~ .error-message {
-            display: block;
-        }
-        /* End of new styles */
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            background: var(--dark);
-            color: white;
-            margin-left: 25%;
-        }
-
-        .footer p {
-            margin-bottom: 0;
-        }
-
-        .footer a {
-            color: var(--secondary);
-            font-weight: 600;
-        }
-        
-        /* Responsive Layout */
-        @media (max-width: 992px) {
-            .sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-                padding: 2rem;
-                flex-direction: column;
-                justify-content: center;
-            }
-            
-            .nav-menu {
-                margin-top: 1rem;
-                display: flex;
-                justify-content: center;
-            }
-            
-            .nav-menu ul {
-                display: flex;
-                gap: 0.5rem;
-            }
-            
-            .nav-menu li {
-                margin: 0;
-            }
-            
-            .nav-menu a {
-                padding: 0.5rem 1rem;
-            }
-            
-            .nav-menu i {
-                margin-right: 0.5rem;
-            }
-            
-            .nav-menu span {
-                /* Hide text on mobile, show only icons */
-                display: none;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 2rem;
-            }
-            
-            .footer {
-                margin-left: 0;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .home-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .typing-text {
-                font-size: 1.2rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-menu ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .info-list {
-                grid-template-columns: 1fr;
-            }
-        }
-
+      
     </style>
 </head>
 
 <body>
+
+    <!-- UI/UX: Mobile Nav Toggle Button -->
+    <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-times"></i>
+    </button>
+
     <div class="container">
-        <aside class="sidebar">
+        <!-- 
+        ========================================
+        SIDEBAR / NAVIGATION
+        ========================================
+        -->
+        <aside class="sidebar" id="sidebar">
             <div class="profile">
-                <img src="https://via.placeholder.com/150/6C5CE7/FFFFFF?text=JD" alt="Profile Image" class="profile-img">
+                <img src="https://placehold.co/150x150/6C5CE7/FFFFFF?text=AB" 
+                     alt="Profile Image" 
+                     class="profile-img"
+                     onerror="this.src='https://placehold.co/150x150/eee/ccc?text=Image+Missing'">
                 <div>
-                    <h2>Jane Doe</h2>
+                    <h2>ayoub abbadi</h2>
                     <p>Web Designer & Developer</p>
                 </div>
             </div>
 
             <nav class="nav-menu">
                 <ul>
-                    <li><a href="#home" class="active"><i class="fas fa-home"></i> <span>Home</span></a></li>
-                    <li><a href="#about"><i class="fas fa-user"></i> <span>About</span></a></li>
-                    <li><a href="#skills"><i class="fas fa-cogs"></i> <span>Skills</span></a></li>
-                    <li><a href="#portfolio"><i class="fas fa-briefcase"></i> <span>Portfolio</span></a></li>
-                    <li><a href="#contact"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+                    <!-- UI/UX: Added data-navlink attributes for easier closing on click -->
+                    <li><a href="#home" class="active" data-navlink><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="#about" data-navlink><i class="fas fa-user"></i> <span>About</span></a></li>
+                    <li><a href="#skills" data-navlink><i class="fas fa-cogs"></i> <span>Skills</span></a></li>
+                    <li><a href="#portfolio" data-navlink><i class="fas fa-briefcase"></i> <span>Portfolio</span></a></li>
+                    <li><a href="#contact" data-navlink><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
                 </ul>
             </nav>
 
             <div class="social-links">
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="#" aria-label="Github"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+                <a href="#" aria-label="My Twitter Profile"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="My LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="My Github Profile"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="My Dribbble Profile"><i class="fab fa-dribbble"></i></a>
             </div>
+            
+            <!-- UI/UX: Theme Toggle Button -->
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
         </aside>
 
+        <!-- 
+        ========================================
+        MAIN CONTENT
+        ========================================
+        -->
         <main class="main-content">
+            <!-- 
+            ========================================
+            HOME SECTION
+            ========================================
+            -->
             <section id="home">
-                <div class="home-content reveal active"> <h1>Hello, I'm <br>Jane Doe</h1>
+                <div class="home-content reveal active">
+                    <h1>Hello, I'm <br>ayoubabbadi</h1>
                     <p class="typing-text"><span id="type-js"></span><span class="cursor">&nbsp;</span></p><br>
-                    <a href="#portfolio" class="btn">View My Work <i class="fas fa-arrow-right"></i></a>
+                    <!-- UI/UX: Added button container and secondary button -->
+                    <div class="home-buttons">
+                        <a href="#portfolio" class="btn">
+                            <span class="btn-text">View My Work</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <span class="btn-text">Get In Touch</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="scroll-down">Scroll Down</div>
+                <a href="#about" class="scroll-down" aria-label="Scroll to About section">
+                    Scroll Down
+                </a>
             </section>
 
+            <!-- 
+            ========================================
+            ABOUT SECTION
+            ========================================
+            -->
             <section id="about" class="reveal">
                 <h2 class="section-title">About Me</h2>
                 <div class="about-content">
                     <div class="about-img">
                         <img src="https://images.unsplash.com/photo-1579403124614-197f69d8187b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80"
-                            alt="About Image" class="about-img-main">
+                             alt="Abstract colorful geometric shapes" 
+                             class="about-img-main"
+                             onerror="this.src='https://placehold.co/600x400/eee/ccc?text=Image+Missing'">
                     </div>
                     <div class="about-text">
                         <h3>Who Am I?</h3>
@@ -988,11 +125,11 @@
                         <div class="info-list">
                             <div class="info-item">
                                 <label>Name:</label>
-                                <span>Jane Doe</span>
+                                <span>ayoubabbadi</span>
                             </div>
                             <div class="info-item">
                                 <label>Email:</label>
-                                <span>jane.doe@example.com</span>
+                                <span>ayoubabbadi@gmail.com</span>
                             </div>
                             <div class="info-item">
                                 <label>Age:</label>
@@ -1000,7 +137,26 @@
                             </div>
                             <div class="info-item">
                                 <label>From:</label>
-                                <span>City, Country</span>
+                                <span>El jadida</span>
+                            </div>
+                        </div>
+                        
+                        <!-- UI/UX: Added Animated Stats -->
+                        <div class="stats-container">
+                            <div class="stat-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <h3 data-target="4">0</h3>
+                                <p>Years Experience</p>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-project-diagram"></i>
+                                <h3 data-target="50">0</h3>
+                                <p>Projects Done</p>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-smile-beam"></i>
+                                <h3 data-target="35">0</h3>
+                                <p>Happy Clients</p>
                             </div>
                         </div>
 
@@ -1009,6 +165,11 @@
                 </div>
             </section>
 
+            <!-- 
+            ========================================
+            SKILLS SECTION
+            ========================================
+            -->
             <section id="skills" class="reveal">
                 <h2 class="section-title">My Skills</h2>
                 <div class="skills-container">
@@ -1016,7 +177,11 @@
                         <div class="skill-icon">
                             <i class="fab fa-html5"></i>
                         </div>
-                        <h3>HTML5</h3>
+                        <!-- UI/UX: Added percentage display -->
+                        <div class="skill-info">
+                            <h3>HTML5</h3>
+                            <span class="skill-percentage" data-target="95">0%</span>
+                        </div>
                         <p>Semantic markup, accessibility, and modern HTML features.</p>
                         <div class="skill-level">
                             <div class="skill-progress" data-width="95%"></div>
@@ -1027,7 +192,10 @@
                         <div class="skill-icon">
                             <i class="fab fa-css3-alt"></i>
                         </div>
-                        <h3>CSS3</h3>
+                        <div class="skill-info">
+                            <h3>CSS3</h3>
+                            <span class="skill-percentage" data-target="90">0%</span>
+                        </div>
                         <p>Responsive design, animations, Flexbox, Grid, and CSS variables.</p>
                         <div class="skill-level">
                             <div class="skill-progress" data-width="90%"></div>
@@ -1038,7 +206,10 @@
                         <div class="skill-icon">
                             <i class="fab fa-js"></i>
                         </div>
-                        <h3>JavaScript</h3>
+                        <div class="skill-info">
+                            <h3>JavaScript</h3>
+                            <span class="skill-percentage" data-target="85">0%</span>
+                        </div>
                         <p>ES6+, DOM manipulation, async programming, and frameworks.</p>
                         <div class="skill-level">
                             <div class="skill-progress" data-width="85%"></div>
@@ -1049,7 +220,10 @@
                         <div class="skill-icon">
                             <i class="fas fa-paint-brush"></i>
                         </div>
-                        <h3>UI/UX Design</h3>
+                        <div class="skill-info">
+                            <h3>UI/UX Design</h3>
+                            <span class="skill-percentage" data-target="80">0%</span>
+                        </div>
                         <p>User research, wireframing, prototyping, and design systems.</p>
                         <div class="skill-level">
                             <div class="skill-progress" data-width="80%"></div>
@@ -1058,6 +232,11 @@
                 </div>
             </section>
 
+            <!-- 
+            ========================================
+            PORTFOLIO SECTION
+            ========================================
+            -->
             <section id="portfolio" class="reveal">
                 <h2 class="section-title">My Portfolio</h2>
                 <div class="portfolio-filter">
@@ -1070,46 +249,67 @@
                 <div class="portfolio-grid">
                     <div class="portfolio-item" data-category="web">
                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-                            alt="Project 1" class="portfolio-img">
+                             alt="Data analytics dashboard on a laptop screen" 
+                             class="portfolio-img"
+                             onerror="this.src='https://placehold.co/400x300/eee/ccc?text=Image+Missing'">
                         <div class="portfolio-overlay">
                             <h3>E-commerce Website</h3>
                             <p>Modern online store with custom cart functionality</p>
-                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                            <a href="#" class="portfolio-link" aria-label="View E-commerce Website project">
+                                <i class="fas fa-link"></i>
+                            </a>
                         </div>
                     </div>
 
                     <div class="portfolio-item" data-category="app">
                         <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-                            alt="Project 2" class="portfolio-img">
+                             alt="Mobile phone showing a travel app interface" 
+                             class="portfolio-img"
+                             onerror="this.src='https://placehold.co/400x300/eee/ccc?text=Image+Missing'">
                         <div class="portfolio-overlay">
                             <h3>Fitness App</h3>
                             <p>Mobile application for workout tracking</p>
-                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                            <a href="#" class="portfolio-link" aria-label="View Fitness App project">
+                                <i class="fas fa-link"></i>
+                            </a>
                         </div>
                     </div>
 
                     <div class="portfolio-item" data-category="design">
                         <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80"
-                            alt="Project 3" class="portfolio-img">
+                             alt="Designer's desk with branding sketches and a laptop" 
+                             class="portfolio-img"
+                             onerror="this.src='https://placehold.co/400x300/eee/ccc?text=Image+Missing'">
                         <div class="portfolio-overlay">
                             <h3>Brand Identity</h3>
                             <p>Complete visual identity for startup company</p>
-                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                            <a href="#" class="portfolio-link" aria-label="View Brand Identity project">
+                                <i class="fas fa-link"></i>
+                            </a>
                         </div>
                     </div>
 
                     <div class="portfolio-item" data-category="web">
                         <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1136&q=80"
-                            alt="Project 4" class="portfolio-img">
+                             alt="Clean and modern website design on a desktop monitor" 
+                             class="portfolio-img"
+                             onerror="this.src='https://placehold.co/400x300/eee/ccc?text=Image+Missing'">
                         <div class="portfolio-overlay">
                             <h3>Corporate Website</h3>
                             <p>Modern business website with CMS integration</p>
-                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                            <a href="#" class="portfolio-link" aria-label="View Corporate Website project">
+                                <i class="fas fa-link"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- 
+            ========================================
+            CONTACT SECTION
+            ========================================
+            -->
             <section id="contact" class="reveal">
                 <h2 class="section-title">Contact Me</h2>
                 <div class="contact-container">
@@ -1120,7 +320,7 @@
                             </div>
                             <div class="contact-text">
                                 <h3>Location</h3>
-                                <p>123 Main Street, City</p>
+                                <p>El jadida, Morocco</p>
                             </div>
                         </div>
 
@@ -1130,7 +330,7 @@
                             </div>
                             <div class="contact-text">
                                 <h3>Email</h3>
-                                <p>contact@example.com</p>
+                                <p>ayoubabbadi@gmail.com</p>
                             </div>
                         </div>
 
@@ -1140,12 +340,12 @@
                             </div>
                             <div class="contact-text">
                                 <h3>Phone</h3>
-                                <p>+1 (555) 000-0000</p>
+                                <p>+212600000000</p>
                             </div>
                         </div>
                     </div>
 
-                    <form class="contact-form" action="#" method="POST" id="contact-form">
+                    <form class="contact-form" action="#" method="POST" id="contact-form" novalidate>
                         <div class="form-group">
                             <input type="text" class="form-control" id="name" placeholder=" " required pattern="[a-zA-Z\s]+">
                             <label for="name">Your Name</label>
@@ -1169,163 +369,39 @@
                             <span class="error-message">Please enter a message.</span>
                         </div>
 
-                        <button type="submit" class="btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                        <!-- UI/UX: Added spinner for loading state -->
+                        <button type="submit" class="btn" id="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </button>
                     </form>
                 </div>
             </section>
         </main>
     </div>
 
+    <!-- 
+    ========================================
+    FOOTER
+    ========================================
+    -->
     <footer class="footer">
-        <p>&copy; 2025 All Rights Reserved | Designed by <a href="#">[Your GitHub]</a></p>
+        <p>&copy; 2025 All Rights Reserved | Designed by <a href="https://github.com/ayoubabbadi" target="_blank" rel="noopener noreferrer">ayoubabbadi</a></p>
     </footer>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
+    <!-- 
+    ========================================
+    UI/UX: "Back to Top" Button
+    ========================================
+    -->
+    <a href="#home" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
-            // --- 1. DYNAMIC TYPING EFFECT ---
-            const typeText = document.getElementById("type-js");
-            const phrases = ["Creative Designer", "Frontend Developer", "UI/UX Enthusiast"];
-            let phraseIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
+    <div id="toast-notification" class="toast-notification" aria-live="polite"></div>
 
-            function type() {
-                if (!typeText) return;
-                const currentPhrase = phrases[phraseIndex];
-                const speed = isDeleting ? 50 : 150;
-                typeText.textContent = currentPhrase.substring(0, charIndex);
-
-                if (isDeleting) {
-                    charIndex--;
-                } else {
-                    charIndex++;
-                }
-
-                if (!isDeleting && charIndex === currentPhrase.length) {
-                    setTimeout(() => isDeleting = true, 1500);
-                } else if (isDeleting && charIndex === 0) {
-                    isDeleting = false;
-                    phraseIndex = (phraseIndex + 1) % phrases.length;
-                }
-                setTimeout(type, speed);
-            }
-            type();
-
-
-            // --- 2. ACTIVE NAV LINK ON SCROLL ---
-            const sections = document.querySelectorAll("section");
-            const navLinks = document.querySelectorAll(".nav-menu a");
-            const navObserverOptions = {
-                root: null,
-                rootMargin: "0px",
-                threshold: 0.6
-            };
-
-            const navObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute("id");
-                        const activeLink = document.querySelector(`.nav-menu a[href="#${id}"]`);
-                        navLinks.forEach(link => link.classList.remove("active"));
-                        if (activeLink) {
-                            activeLink.classList.add("active");
-                        }
-                    }
-                });
-            }, navObserverOptions);
-            sections.forEach(section => navObserver.observe(section));
-
-
-            // --- 3. PORTFOLIO FILTERING ---
-            const filterContainer = document.querySelector(".portfolio-filter");
-            const filterBtns = filterContainer?.querySelectorAll(".filter-btn");
-            const portfolioItems = document.querySelectorAll(".portfolio-item");
-
-            filterContainer?.addEventListener("click", (e) => {
-                if (!e.target.classList.contains("filter-btn")) return;
-
-                filterBtns.forEach(btn => btn.classList.remove("active"));
-                e.target.classList.add("active");
-
-                const filterValue = e.target.dataset.filter;
-
-                portfolioItems.forEach(item => {
-                    const itemCategory = item.dataset.category;
-                    if (filterValue === "all" || filterValue === itemCategory) {
-                        item.classList.remove("hide");
-                        item.style.display = 'block';
-                    } else {
-                        item.classList.add("hide");
-                        setTimeout(() => {
-                           item.style.display = 'none';
-                        }, 500);
-                    }
-                });
-            });
-
-            // --- NEW: 4. ANIMATE-ON-SCROLL FOR SECTIONS ---
-            const revealElements = document.querySelectorAll(".reveal");
-            const revealObserverOptions = {
-                root: null,
-                rootMargin: "0px",
-                threshold: 0.15 // 15% of the element must be visible
-            };
-            
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("active");
-                        // Optional: stop observing once revealed
-                        // observer.unobserve(entry.target); 
-                    }
-                });
-            }, revealObserverOptions);
-            
-            revealElements.forEach(el => revealObserver.observe(el));
-            
-            // --- NEW: 5. DYNAMIC SKILL BAR ANIMATION ---
-            const skillCards = document.querySelectorAll(".skill-card");
-            const skillObserverOptions = {
-                root: null,
-                rootMargin: "0px",
-                threshold: 0.5 // 50% of the card must be visible
-            };
-
-            const skillObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const skillProgress = entry.target.querySelector(".skill-progress");
-                        const targetWidth = skillProgress.dataset.width;
-                        skillProgress.style.width = targetWidth; // Animate width
-                        
-                        // Stop observing this card so animation doesn't re-run
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, skillObserverOptions);
-
-            skillCards.forEach(card => skillObserver.observe(card));
-
-            
-            // --- NEW: 6. FORM SUBMISSION LOGIC ---
-            const contactForm = document.getElementById("contact-form");
-            contactForm?.addEventListener("submit", (e) => {
-                e.preventDefault(); // Prevent default page reload
-                
-                // checkValidity() triggers the CSS :invalid styles
-                if (contactForm.checkValidity()) {
-                    // In a real project, you'd send this data to a server (e.g., using fetch)
-                    alert("Message sent successfully! (This is a demo)");
-                    contactForm.reset(); // Clear the form
-                } else {
-                    // Form is invalid, CSS will show error messages
-                    alert("Please correct the errors in the form.");
-                }
-            });
-
-        });
-    </script>
+    <script src="main.js"></script>
 </body>
 
 </html>
